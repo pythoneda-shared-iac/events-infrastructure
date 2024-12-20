@@ -21,20 +21,24 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 __path__ = __import__("pkgutil").extend_path(__path__, __name__)
 
-from dbus_docker_resources_removal_failed.py import DbusDockerResourcesRemovalFailed
-from dbus_docker_resources_removal_requested.py import (
+DBUS_PATH = "/pythoneda/iac"
+
+from .dbus_docker_resources_removal_failed import DbusDockerResourcesRemovalFailed
+from .dbus_docker_resources_removal_requested import (
     DbusDockerResourcesRemovalRequested,
 )
-from dbus_docker_resources_removed.py import DbusDockerResourcesRemoved
-from dbus_docker_resources_update_failed.py import DbusDockerResourcesUpdateFailed
-from dbus_docker_resources_update_requested.py import DbusDockerResourcesUpdateRequested
-from dbus_docker_resources_updated.py import DbusDockerResourcesUpdated
-from dbus_infrastructure_removal_failed.py import DbusInfrastructureRemovalFailed
-from dbus_infrastructure_removal_requested.py import DbusInfrastructureRemovalRequested
-from dbus_infrastructure_removed.py import DbusInfrastructureRemoved
-from dbus_infrastructure_update_failed.py import DbusInfrastructureUpdateFailed
-from dbus_infrastructure_update_requested.py import DbusInfrastructureUpdateRequested
-from dbus_infrastructure_updated.py import DbusInfrastructureUpdated
+from .dbus_docker_resources_removed import DbusDockerResourcesRemoved
+from .dbus_docker_resources_update_failed import DbusDockerResourcesUpdateFailed
+from .dbus_docker_resources_update_requested import (
+    DbusDockerResourcesUpdateRequested,
+)
+from .dbus_docker_resources_updated import DbusDockerResourcesUpdated
+from .dbus_infrastructure_removal_failed import DbusInfrastructureRemovalFailed
+from .dbus_infrastructure_removal_requested import DbusInfrastructureRemovalRequested
+from .dbus_infrastructure_removed import DbusInfrastructureRemoved
+from .dbus_infrastructure_update_failed import DbusInfrastructureUpdateFailed
+from .dbus_infrastructure_update_requested import DbusInfrastructureUpdateRequested
+from .dbus_infrastructure_updated import DbusInfrastructureUpdated
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
 # Local Variables:

@@ -106,8 +106,8 @@ class DbusInfrastructureUpdated(BaseObject, ServiceInterface):
             event.stack_name,
             event.project_name,
             event.location,
-            event.id,
             json.dumps(event.previous_event_ids),
+            event.id,
         ]
 
     @classmethod
@@ -133,14 +133,14 @@ class DbusInfrastructureUpdated(BaseObject, ServiceInterface):
         stack_name,
         project_name,
         location,
-        event_id,
-        prev_event_ids = message.body
+        prev_event_ids,
+        event_id = message.body
         return InfrastructureUpdated(
             stack_name,
             project_name,
             location,
-            event_id,
             json.loads(prev_event_ids),
+            event_id,
         )
 
 

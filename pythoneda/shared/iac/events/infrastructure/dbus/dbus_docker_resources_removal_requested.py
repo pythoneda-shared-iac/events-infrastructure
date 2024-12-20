@@ -118,8 +118,8 @@ class DbusDockerResourcesRemovalRequested(BaseObject, ServiceInterface):
             event.image_name,
             event.image_version,
             event.image_url,
-            event.id,
             json.dumps(event.previous_event_ids),
+            event.id,
         ]
 
     @classmethod
@@ -148,8 +148,8 @@ class DbusDockerResourcesRemovalRequested(BaseObject, ServiceInterface):
         image_name,
         image_version,
         image_url,
-        event_id,
-        prev_event_ids = message.body
+        prev_event_ids,
+        event_id = message.body
         return DockerResourcesRemovalRequested(
             stack_name,
             project_name,
@@ -157,8 +157,8 @@ class DbusDockerResourcesRemovalRequested(BaseObject, ServiceInterface):
             image_name,
             image_version,
             image_url,
-            event_id,
             json.loads(prev_event_ids),
+            event_id,
         )
 
 
