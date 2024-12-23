@@ -20,15 +20,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from dbus_next import BusType, Message
-from dbus_next.service import ServiceInterface, signal
+from dbus_next.service import signal
 import json
-from pythoneda.shared import BaseObject, Event
+from pythoneda.shared import Event
+from pythoneda.shared.infrastructure.dbus import DbusEvent
 from pythoneda.shared.iac.events import InfrastructureRemovalRequested
 from pythoneda.shared.iac.events.infrastructure.dbus import DBUS_PATH
-from typing import List
+from typing import List, Type
 
 
-class DbusInfrastructureRemovalRequested(BaseObject, ServiceInterface):
+class DbusInfrastructureRemovalRequested(DbusEvent):
     """
     Represents the moment removal of infrastructure resources has been requested.
 
@@ -142,6 +143,15 @@ class DbusInfrastructureRemovalRequested(BaseObject, ServiceInterface):
             json.loads(prev_event_ids),
             event_id,
         )
+
+    @classmethod
+    def event_class(cls) -> Type[Event]:
+        """
+        Retrieves the specific event class.
+        :return: Such class.
+        :rtype: type(pythoneda.shared.Event)
+        """
+        return InfrastructureRemovalRequested
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

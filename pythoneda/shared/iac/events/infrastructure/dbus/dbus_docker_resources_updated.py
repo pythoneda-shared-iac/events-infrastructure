@@ -20,15 +20,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from dbus_next import BusType, Message
-from dbus_next.service import ServiceInterface, signal
+from dbus_next.service import signal
 import json
-from pythoneda.shared import BaseObject, Event
+from pythoneda.shared import Event
+from pythoneda.shared.infrastructure.dbus import DbusEvent
 from pythoneda.shared.iac.events import DockerResourcesUpdated
 from pythoneda.shared.iac.events.infrastructure.dbus import DBUS_PATH
-from typing import List
+from typing import List, Type
 
 
-class DbusDockerResourcesUpdated(BaseObject, ServiceInterface):
+class DbusDockerResourcesUpdated(DbusEvent):
     """
     Represents the moment Docker resources have been updated.
 
@@ -160,6 +161,15 @@ class DbusDockerResourcesUpdated(BaseObject, ServiceInterface):
             json.loads(prev_event_ids),
             event_id,
         )
+
+    @classmethod
+    def event_class(cls) -> Type[Event]:
+        """
+        Retrieves the specific event class.
+        :return: Such class.
+        :rtype: type(pythoneda.shared.Event)
+        """
+        return DockerResourcesUpdated
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
