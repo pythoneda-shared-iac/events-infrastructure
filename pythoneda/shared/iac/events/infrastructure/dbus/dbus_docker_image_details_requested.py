@@ -19,7 +19,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from dbus_next import BusType, Message
+from dbus_next import Message
 from dbus_next.service import signal
 import json
 from pythoneda.shared import Event
@@ -46,7 +46,7 @@ class DbusDockerImageDetailsRequested(DbusEvent):
         """
         Creates a new DbusDockerImageDetailsRequested instance.
         """
-        super().__init__("Pythoneda_Iac_DockerImageDetailsRequested")
+        super().__init__("Pythoneda_Iac_DockerImageDetailsRequested", DBUS_PATH)
 
     @signal()
     def DockerImageDetailsRequested(
@@ -72,15 +72,6 @@ class DbusDockerImageDetailsRequested(DbusEvent):
         :type imageUrl: str
         """
         pass
-
-    @property
-    def path(self) -> str:
-        """
-        Retrieves the d-bus path.
-        :return: Such value.
-        :rtype: str
-        """
-        return DBUS_PATH
 
     def build_path(self, event: Event) -> str:
         """
