@@ -23,6 +23,7 @@ __path__ = __import__("pkgutil").extend_path(__path__, __name__)
 
 DBUS_PATH = "/pythoneda/iac"
 
+from .dbus_docker_image_details_requested import DbusDockerImageDetailsRequested
 from .dbus_docker_resources_removal_failed import DbusDockerResourcesRemovalFailed
 from .dbus_docker_resources_removal_requested import (
     DbusDockerResourcesRemovalRequested,
