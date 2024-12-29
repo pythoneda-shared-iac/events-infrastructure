@@ -46,7 +46,17 @@ class DbusDockerResourcesUpdateFailed(DbusEvent):
         """
         Creates a new DbusDockerResourcesUpdateFailed instance.
         """
-        super().__init__("Pythoneda_Iac_DockerResourcesUpdateFailed", DBUS_PATH)
+        super().__init__(DBUS_PATH)
+
+    @classmethod
+    @property
+    def name(cls) -> str:
+        """
+        Retrieves the d-bus interface name.
+        :return: Such value.
+        :rtype: str
+        """
+        return "Pythoneda_Iac_DockerResourcesUpdateFailed"
 
     @signal()
     def DockerResourcesUpdateFailed(

@@ -46,7 +46,17 @@ class DbusDockerResourcesUpdated(DbusEvent):
         """
         Creates a new DbusDockerResourcesUpdated instance.
         """
-        super().__init__("Pythoneda_Iac_DockerResourcesUpdated", DBUS_PATH)
+        super().__init__(DBUS_PATH)
+
+    @classmethod
+    @property
+    def name(cls) -> str:
+        """
+        Retrieves the d-bus interface name.
+        :return: Such value.
+        :rtype: str
+        """
+        return "Pythoneda_Iac_DockerResourcesUpdated"
 
     @signal()
     def DockerResourcesUpdated(

@@ -46,7 +46,17 @@ class DbusInfrastructureUpdateRequested(DbusEvent):
         """
         Creates a new DbusInfrastructureUpdateRequested instance.
         """
-        super().__init__("Pythoneda_Iac_InfrastructureUpdateRequested", DBUS_PATH)
+        super().__init__(DBUS_PATH)
+
+    @classmethod
+    @property
+    def name(cls) -> str:
+        """
+        Retrieves the d-bus interface name.
+        :return: Such value.
+        :rtype: str
+        """
+        return "Pythoneda_Iac_InfrastructureUpdateRequested"
 
     @signal()
     def InfrastructureUpdateRequested(

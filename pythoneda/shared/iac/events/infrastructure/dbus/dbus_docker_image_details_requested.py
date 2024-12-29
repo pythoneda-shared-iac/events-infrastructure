@@ -26,7 +26,7 @@ from pythoneda.shared import Event
 from pythoneda.shared.infrastructure.dbus import DbusEvent
 from pythoneda.shared.iac.events import DockerImageDetailsRequested
 from pythoneda.shared.iac.events.infrastructure.dbus import DBUS_PATH
-from typing import List, Type
+from typing import List, Tuple, Type
 
 
 class DbusDockerImageDetailsRequested(DbusEvent):
@@ -46,7 +46,17 @@ class DbusDockerImageDetailsRequested(DbusEvent):
         """
         Creates a new DbusDockerImageDetailsRequested instance.
         """
-        super().__init__("Pythoneda_Iac_DockerImageDetailsRequested", DBUS_PATH)
+        super().__init__(DBUS_PATH)
+
+    @classmethod
+    @property
+    def name(cls) -> str:
+        """
+        Retrieves the d-bus interface name.
+        :return: Such value.
+        :rtype: str
+        """
+        return "Pythoneda_Iac_DockerImageDetailsRequested"
 
     @signal()
     def DockerImageDetailsRequested(
@@ -110,30 +120,34 @@ class DbusDockerImageDetailsRequested(DbusEvent):
         :return: The signature.
         :rtype: str
         """
-        return "ssssss"
+        return "sssssss"
 
     @classmethod
-    def parse(cls, message: Message) -> DockerImageDetailsRequested:
+    def parse(cls, message: Message) -> Tuple[str, DockerImageDetailsRequested]:
         """
         Parses given d-bus message containing a DockerImageDetailsRequested event.
         :param message: The message.
         :type message: dbus_next.Message
-        :return: The DockerImageDetailsRequested event.
-        :rtype: pythoneda.shared.iac.events.DockerImageDetailsRequested
+        :return: The invariants and DockerImageDetailsRequested event tuple.
+        :rtype: Tuple[str, pythoneda.shared.iac.events.DockerImageDetailsRequested]
         """
         stack_name,
         project_name,
         location,
         metadata,
         prev_event_ids,
+        invariants,
         event_id = message.body
-        return DockerImageDetailsRequested(
-            stack_name,
-            project_name,
-            location,
-            json.loads(metadata),
-            json.loads(prev_event_ids),
-            event_id,
+        return (
+            invariants,
+            DockerImageDetailsRequested(
+                stack_name,
+                project_name,
+                location,
+                json.loads(metadata),
+                json.loads(prev_event_ids),
+                event_id,
+            ),
         )
 
     @classmethod

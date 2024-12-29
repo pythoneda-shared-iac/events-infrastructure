@@ -26,7 +26,7 @@ from pythoneda.shared import Event
 from pythoneda.shared.infrastructure.dbus import DbusEvent
 from pythoneda.shared.iac.events import DockerResourcesRemovalFailed
 from pythoneda.shared.iac.events.infrastructure.dbus import DBUS_PATH
-from typing import List, Type
+from typing import List, Tuple, Type
 
 
 class DbusDockerResourcesRemovalFailed(DbusEvent):
@@ -46,7 +46,17 @@ class DbusDockerResourcesRemovalFailed(DbusEvent):
         """
         Creates a new DbusDockerResourcesRemovalFailed instance.
         """
-        super().__init__("Pythoneda_Iac_DockerResourcesRemovalFailed", DBUS_PATH)
+        super().__init__(DBUS_PATH)
+
+    @classmethod
+    @property
+    def name(cls) -> str:
+        """
+        Retrieves the d-bus interface name.
+        :return: Such value.
+        :rtype: str
+        """
+        return "Pythoneda_Iac_DockerResourcesRemovalFailed"
 
     @signal()
     def DockerResourcesRemovalFailed(
@@ -114,16 +124,16 @@ class DbusDockerResourcesRemovalFailed(DbusEvent):
         :return: The signature.
         :rtype: str
         """
-        return "ssssssss"
+        return "sssssssss"
 
     @classmethod
-    def parse(cls, message: Message) -> DockerResourcesRemovalFailed:
+    def parse(cls, message: Message) -> Tuple[str, DockerResourcesRemovalFailed]:
         """
         Parses given d-bus message containing a DockerResourcesRemovalFailed event.
         :param message: The message.
         :type message: dbus_next.Message
-        :return: The DockerResourcesRemovalFailed event.
-        :rtype: pythoneda.shared.iac.events.DockerResourcesRemovalFailed
+        :return: A tuple with the invariants and the DockerResourcesRemovalFailed event.
+        :rtype: Tuple[str, pythoneda.shared.iac.events.DockerResourcesRemovalFailed]
         """
         stack_name,
         project_name,
@@ -132,16 +142,20 @@ class DbusDockerResourcesRemovalFailed(DbusEvent):
         image_version,
         image_url,
         prev_event_ids,
+        invariants,
         event_id = message.body
-        return DockerResourcesRemovalFailed(
-            stack_name,
-            project_name,
-            location,
-            image_name,
-            image_version,
-            image_url,
-            json.loads(prev_event_ids),
-            event_id,
+        return (
+            invariants,
+            DockerResourcesRemovalFailed(
+                stack_name,
+                project_name,
+                location,
+                image_name,
+                image_version,
+                image_url,
+                json.loads(prev_event_ids),
+                event_id,
+            ),
         )
 
     @classmethod

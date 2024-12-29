@@ -46,7 +46,17 @@ class DbusInfrastructureRemoved(DbusEvent):
         """
         Creates a new DbusInfrastructureRemoved instance.
         """
-        super().__init__("Pythoneda_Iac_InfrastructureRemoved", DBUS_PATH)
+        super().__init__(DBUS_PATH)
+
+    @classmethod
+    @property
+    def name(cls) -> str:
+        """
+        Retrieves the d-bus interface name.
+        :return: Such value.
+        :rtype: str
+        """
+        return "Pythoneda_Iac_InfrastructureRemoved"
 
     @signal()
     def InfrastructureRemoved(
